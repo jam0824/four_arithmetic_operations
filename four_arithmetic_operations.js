@@ -44,7 +44,7 @@ function normal_formula(list_permutation, list_operators){
     formula += list_permutation[i] + list_operators[i];
   }
   formula += list_permutation[list_permutation.length - 1];
-  var x = exec_formula(normal_formula);
+  var x = exec_formula(formula);
   if(x == ANSWER){
     return_formulas += make_str_answer(formula, x, return_formulas);
   }
@@ -103,14 +103,16 @@ function exec_formula(formula){
 
 //出力数式の整形
 function make_str_answer(formula, x, all_formula){
-  console.log(all_formula);
-  console.log(formula);
-  if(all_formula.includes(formula)){
-    return '';
+  if(formula.includes('(')){
+    conv_formula = formula.replace(/\(/g,'');
+    conv_formula = conv_formula.replace(/\)/g,'');
+    var y = exec_formula(conv_formula);
+    if(y == ANSWER){
+      return '';
+    }
+
   }
-  else{
-    return formula + "=" + x + "\n";;
-  }
+  return formula + "=" + x + "\n";
 }
 
 //順列の配列を用意
